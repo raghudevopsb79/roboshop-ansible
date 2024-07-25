@@ -1,4 +1,4 @@
-if [ -z "$component" -o -z "$env" -o -z "$ssh_password" -o -z "$component" ]; then
+if [ -z "$component" -o -z "$env" -o -z "$ssh_password" ]; then
   echo Input Missing
   exit 1
 fi
