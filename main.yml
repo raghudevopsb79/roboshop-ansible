@@ -1,6 +1,8 @@
 - name: RoboShop Project
   hosts: all
   become: true
+  vars:
+    dns_domain: rdevopsb79.online
   roles:
     - "{{ component }}"
 
