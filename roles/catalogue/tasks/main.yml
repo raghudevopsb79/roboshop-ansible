@@ -42,6 +42,18 @@
     state: restarted
     enabled: yes
 
+- name: Copy Mongo Repo file
+  ansible.builtin.copy:
+    src: mongo.repo
+    dest: /etc/yum.repos.d/mongo.repo
+
+- name: Install Mongo client
+  ansible.builtin.dnf:
+    name: mongodb-mongosh
+    state: latest
+
+- name: Load master data
+  ansible.builtin.shell: mongosh --host mongo-dev.rdevopsb79.online </app/db/master-data.js
 
 
 
