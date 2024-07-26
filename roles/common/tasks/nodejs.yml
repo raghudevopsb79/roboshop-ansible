@@ -1,0 +1,53 @@
+- name: Enable NodeJS 20
+  ansible.builtin.shell: dnf module disable nodejs -y ; dnf module enable nodejs:20 -y
+
+- name: Install NodeJS
+  ansible.builtin.dnf:
+    name: nodejs
+    state: latest
+
+- name: Add Application User
+  ansible.builtin.user:
+    name: roboshop
+
+- name: Delete Old App Directory
+  ansible.builtin.file:
+    path: /app
+    state: absent
+
+- name: Create App Directory
+  ansible.builtin.file:
+    path: /app
+    state: directory
+
+- name: Download and Extract App content
+  ansible.builtin.unarchive:
+    src: https://roboshop-artifacts.s3.amazonaws.com/{{ component }}-v3.zip
+    dest: /app
+    remote_src: yes
+
+- name: Download app dependencies
+  community.general.npm:
+    path: /app
+
+- name: Setup systemd service file
+  ansible.builtin.template:
+    src: "{{ component }}.service"
+    dest: /etc/systemd/system/{{ component }}.service
+
+- name: Start {{ component }} service
+  ansible.builtin.systemd_service:
+    name: "{{ component }}"
+    daemon-reload: yes
+    state: restarted
+    enabled: yes
+
+- name: Include Schema
+  when: setup_schema is defined and schema_type == "mongo"
+  ansible.builtin.include_tasks:
+    file: mongo-schema.yml
+
+
+
+
+
