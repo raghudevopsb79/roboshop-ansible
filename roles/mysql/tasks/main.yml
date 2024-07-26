@@ -9,10 +9,6 @@
     state: restarted
     enabled: yes
 
-- name: print password
-  debug:
-    msg: "{{ secrets.ROOT_PASSWORD }}"
-
 - name: Setup MySQL password
   ansible.builtin.shell: mysql_secure_installation --set-root-pass {{ secrets.ROOT_PASSWORD }}
 

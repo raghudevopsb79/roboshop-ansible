@@ -1,0 +1,11 @@
+schema_files:
+  - app-user
+  - master-data
+  - schema
+
+setup_schema: true
+schema_type: mysql
+component: shipping
+
+secrets: "{{ lookup('hashi_vault', 'secret=roboshop-{{env}}/data/shipping token={{ vault_token }} url=https://vault-internal.{{ dns_domain }}:8200 validate_certs=False')}}"
+

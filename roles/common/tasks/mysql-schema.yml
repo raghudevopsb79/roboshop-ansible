@@ -1,0 +1,8 @@
+- name: Install MySQL client
+  ansible.builtin.dnf:
+    name: mysql
+    state: latest
+
+- name: Load master data
+  loop: "{{ schema_files }}"
+  ansible.builtin.shell: mysql -h mysql-{{env}}.{{dns_domain}} -uroot -p{{secrets.ROOT_PASSWORD}} < /app/db/{{item}}.sql
