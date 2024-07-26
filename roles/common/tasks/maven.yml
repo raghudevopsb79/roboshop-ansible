@@ -12,11 +12,6 @@
   args:
     chdir: /app
 
-- name: Include Schema
-  when: setup_schema is defined and schema_type == "mysql"
-  ansible.builtin.include_tasks:
-    file: mysql-schema.yml
-
 - name: Include SystemD
   ansible.builtin.include_tasks:
     file: systemd.yml

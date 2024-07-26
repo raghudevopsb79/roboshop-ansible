@@ -1,9 +1,9 @@
-- name: Enable NodeJS 20
-  ansible.builtin.shell: dnf module disable nodejs -y ; dnf module enable nodejs:20 -y
-
-- name: Install NodeJS
+- name: Install Maven
   ansible.builtin.dnf:
-    name: nodejs
+    name:
+      - python3
+      - gcc
+      - python3-devel
     state: latest
 
 - name: Include App Pre-requisites
@@ -11,15 +11,13 @@
     file: app-prereq.yml
 
 - name: Download app dependencies
-  community.general.npm:
-    path: /app
+  ansible.builtin.shell: pip3 install -r requirements.txt
+  args:
+    chdir: /app
 
 - name: Include SystemD
   ansible.builtin.include_tasks:
     file: systemd.yml
-
-
-
 
 
 
