@@ -1,7 +1,7 @@
 schema_files:
   - app-user
-  - master-data
   - schema
+  - master-data
 
 setup_schema: true
 schema_type: mysql
