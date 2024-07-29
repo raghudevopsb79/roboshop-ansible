@@ -1,6 +1,6 @@
 schema_files:
-  - app-user
   - schema
+  - app-user
   - master-data
 
 setup_schema: true
