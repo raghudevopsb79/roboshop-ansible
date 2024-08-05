@@ -8,6 +8,7 @@
 
 - name: Extend Partition
   ansible.builtin.shell: growpart /dev/nvme0n1 4 ; lvextend -r -L +10G /dev/mapper/RootVG-varVol
+  ignore_errors: yes
 
 - name: Run Docker
   ansible.builtin.include_role:
