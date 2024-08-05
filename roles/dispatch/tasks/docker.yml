@@ -1,0 +1,12 @@
+- name: Start dispatch Container
+  docker_container:
+    name: dispatch
+    image: public.ecr.aws/w8x4g9h7/roboshop-v3/dispatch
+    state: started
+    restart: yes
+    env:
+      AMQP_HOST: rabbitmq-{{env}}.{{dns_domain}}
+      AMQP_USER: {{ secrets.app_user }}
+      AMQP_PASS: {{ secrets.app_password }}
+
+

@@ -1,0 +1,31 @@
+- name: Start Cart Container
+  docker_container:
+    name: cart
+    image: public.ecr.aws/w8x4g9h7/roboshop-v3/cart
+    state: started
+    restart: yes
+    ports:
+     - "8080:8080"
+    env:
+      CART_ENDPOINT: cart-{{env}}.{{dns_domain}}:8080
+      DB_HOST: mysql-{{env}}.{{dns_domain}}
+
+- name: Load Schema
+  loop:
+    - app-user
+    - schema
+    - master-data
+  docker_container:
+    name: "{{item}}"
+    image: public.ecr.aws/w8x4g9h7/roboshop-v3/schema-load
+    state: started
+    env:
+      DB_TYPE: mysql
+      APP_GIT_URL: https://github.com/roboshop-devops-project-v3/shipping
+      DB_HOST: mysql-dev.rdevopsb79.online
+      DB_USER: root
+      DB_PASS: "{{ secrets.ROOT_PASSWORD }}"
+      SCHEMA_FILE: db/{{ item }}.sql
+
+
+

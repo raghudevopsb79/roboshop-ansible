@@ -1,0 +1,14 @@
+- name: Start User Container
+  docker_container:
+    name: user
+    image: public.ecr.aws/w8x4g9h7/roboshop-v3/user
+    state: started
+    restart: yes
+    ports:
+     - "8080:8080"
+    env:
+      MONGO: true
+      REDIS_URL: 'redis://redis-{{env}}.{{dns_domain}}:6379'
+      MONGO_URL: "mongodb://mongo-{{env}}.{{dns_domain}}:27017/users"
+
+

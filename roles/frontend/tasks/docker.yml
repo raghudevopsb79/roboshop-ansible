@@ -1,0 +1,21 @@
+- name: Start Frontend Container
+  docker_container:
+    name: frontend
+    image: public.ecr.aws/w8x4g9h7/roboshop-v3/frontend
+    state: started
+    restart: yes
+    ports:
+     - "80:80"
+    env:
+      CATALOGUE_HOST: catalogue.{{env}}.{{dns_domain}}
+      CATALOGUE_PORT: 8080
+      USER_HOST: user.{{env}}.{{dns_domain}}
+      USER_PORT: 8080
+      CART_HOST: cart.{{env}}.{{dns_domain}}
+      CART_PORT: 8080
+      SHIPPING_HOST: shipping.{{env}}.{{dns_domain}}
+      SHIPPING_PORT: 8080
+      PAYMENT_HOST: payment.{{env}}.{{dns_domain}}
+      PAYMENT_PORT: 8080
+
+
