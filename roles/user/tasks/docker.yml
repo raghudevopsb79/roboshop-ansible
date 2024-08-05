@@ -10,5 +10,7 @@
       MONGO: "true"
       REDIS_URL: 'redis://redis-{{env}}.{{dns_domain}}:6379'
       MONGO_URL: "mongodb://mongo-{{env}}.{{dns_domain}}:27017/users"
+      REDIS_HOST: 'redis-{{env}}.{{dns_domain}}'
+
 
 
